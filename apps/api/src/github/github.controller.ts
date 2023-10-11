@@ -1,13 +1,9 @@
 import { HttpService } from '@nestjs/axios';
 import { Controller, Get, NotFoundException, Param } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 
 @Controller('github')
 export class GithubController {
-  constructor(
-    private httpService: HttpService,
-    private configService: ConfigService,
-  ) {}
+  constructor(private httpService: HttpService) {}
 
   @Get(':owner/:repoName')
   async getRepoInfo(
@@ -18,20 +14,12 @@ export class GithubController {
       const repoUrl = `https://api.github.com/repos/${owner}/${repoName}`;
       const commitsUrl = `https://api.github.com/repos/${owner}/${repoName}/commits`;
 
-      const githubToken = this.configService.get<string>('GITHUB_TOKEN');
-
-      const headers = {
-        Authorization: `token ${githubToken}`,
-      };
-
       // Obtener información del repositorio
-      const repoResponse = await this.httpService
-        .get(repoUrl, { headers })
-        .toPromise();
+      const repoResponse = await this.httpService.get(repoUrl).toPromise();
 
       // Obtener commits del repositorio
       const commitsResponse = await this.httpService
-        .get(commitsUrl, { headers })
+        .get(commitsUrl)
         .toPromise();
 
       return {
