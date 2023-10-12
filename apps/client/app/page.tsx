@@ -23,6 +23,10 @@ export type RepoInfo = {
 
 const DEFAULT_REPOS: RepoInfo[] = [
   {
+    repo: "GithubMono",
+    owner: "mssnzz",
+  },
+  {
     repo: "RepoBackend",
     owner: "mssnzz",
   },
