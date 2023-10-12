@@ -1,0 +1,12 @@
+# apps/api/Dockerfile.dev
+FROM node:14
+
+WORKDIR /usr/src/api
+
+COPY ./apps/api/package.json ./apps/api/package-lock.json ./
+
+RUN npm install
+
+COPY ./apps/api .
+
+CMD ["npm", "run", "start:dev"]

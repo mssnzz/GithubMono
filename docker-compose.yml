@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile.dev
+    ports:
+      - 4321:4321
+    volumes:
+      - ./apps/api:/usr/src/api
+      - /usr/src/api/node_modules
+
+  client:
+    build:
+      context: .
+      dockerfile: apps/client/Dockerfile.dev
+    ports:
+      - 3000:3000
+    volumes:
+      - ./apps/client:/usr/src/client
+      - /usr/src/client/node_modules
+
